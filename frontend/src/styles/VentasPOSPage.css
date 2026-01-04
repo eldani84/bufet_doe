@@ -1,0 +1,956 @@
+/* src/styles/VentasPOSPage.css */
+/* ============================================================
+   🧾 POS – Estilos específicos (sin tocar tu BufetUI.css)
+   - Encabezado con 2 tarjetas (Datos operativos + Caja)
+   - Cada tarjeta ocupa el 50% de ancho
+   - Altura tipo barra: un solo renglón visual
+   - Fullscreen real SIN desbordar
+   - Scroll interno en catálogo y carrito
+   - Catálogo en tarjetas clickeables
+   - Carrito compacto (filas bajas)
+   - Modal real para Caja y Cobro
+
+   ✅ FIX IMPORTANTE:
+   - En pantallas, "cm" no es tamaño físico real. Para que se vea GRANDE y consistente,
+     se setea tamaño en px equivalente aprox a 4cm x 5cm y se fuerza con !important
+     al final del archivo para que gane a duplicados/inline.
+   ============================================================ */
+
+.pos-shell {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =====================================
+   Botones “POS modern”
+   ===================================== */
+
+.pos-btn {
+  box-shadow: 0 10px 24px rgba(2, 6, 23, 0.25);
+  border-color: rgba(148, 163, 184, 0.6);
+  transform: translateY(0);
+}
+
+.pos-btn:hover {
+  transform: translateY(-0.5px);
+}
+
+.pos-btn:active {
+  transform: translateY(0);
+}
+
+.pos-btn-primary {
+  box-shadow: 0 14px 30px rgba(2, 6, 23, 0.35);
+}
+
+.pos-btn-soft {
+  border-radius: 14px;
+}
+
+/* Header superior */
+
+.pos-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+  flex: 0 0 auto;
+}
+
+.pos-header-left {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.pos-title {
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.pos-subtitle {
+  font-size: 0.82rem;
+  color: var(--bufet-text-muted);
+}
+
+.pos-dim {
+  opacity: 0.9;
+}
+
+.pos-header-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.pos-messages {
+  margin: 0.25rem 0 0.65rem;
+  flex: 0 0 auto;
+}
+
+/* =====================================
+   ✅ Encabezado con 2 tarjetas (50/50)
+   ===================================== */
+
+.pos-topcards {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.pos-topcard {
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: radial-gradient(
+    circle at top left,
+    rgba(56, 189, 248, 0.14),
+    rgba(255, 255, 255, 0.02)
+  );
+  box-shadow: var(--bufet-shadow-soft);
+  padding: 0.45rem 0.6rem;
+  min-width: 0;
+}
+
+.theme-light .pos-topcard {
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), #ffffff);
+}
+
+/* Fila única dentro de cada tarjeta */
+
+.pos-topcard-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Tarjeta Datos operativos */
+
+.pos-topcard-ops {
+  padding: 0.4rem 0.5rem;
+}
+
+.pos-topcard-title {
+  font-size: 0.9rem;
+  font-weight: 750;
+  letter-spacing: 0.15px;
+}
+
+.pos-ops-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  justify-content: flex-end;
+}
+
+.pos-ops-tag {
+  border-radius: 999px;
+  padding: 0.14rem 0.55rem;
+  font-size: 0.72rem;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--bufet-text-secondary);
+  white-space: nowrap;
+}
+
+.theme-light .pos-ops-tag {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+/* Tarjeta Caja */
+
+.pos-topcard-caja {
+  padding: 0.4rem 0.55rem;
+}
+
+.pos-kpi {
+  text-align: right;
+  display: grid;
+  gap: 0.12rem;
+}
+
+.pos-kpi-label {
+  font-size: 0.7rem;
+  color: var(--bufet-text-muted);
+}
+
+.pos-kpi-value {
+  font-size: 0.98rem;
+  font-weight: 850;
+  letter-spacing: 0.2px;
+}
+
+.pos-caja-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: nowrap;
+}
+
+.pos-caja-actions-inline {
+  justify-content: flex-end;
+}
+
+.pos-hint {
+  font-size: 0.74rem;
+  color: var(--bufet-text-muted);
+}
+
+.pos-inline-hint {
+  flex: 1 1 auto;
+  min-width: 220px;
+  text-align: left;
+}
+
+/* ============================================================
+   ✅ Grid principal (50/50 catálogo / carrito)
+   ============================================================ */
+
+.pos-layout {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+/* Paneles */
+
+.pos-panel {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Header catálogo */
+
+.pos-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.45rem;
+  flex: 0 0 auto;
+}
+
+/* Contenedor de filtros de categorías */
+
+.pos-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+  justify-content: flex-end;
+  max-width: 420px;
+}
+
+/* Botones de categoría compactos */
+
+.pos-category-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  padding: 0.18rem 0.6rem;
+  font-size: 0.74rem;
+  background: rgba(15, 23, 42, 0.85);
+  color: var(--bufet-text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: background 0.15s ease, border-color 0.15s ease,
+    transform 0.06s ease, color 0.15s ease;
+}
+
+.theme-light .pos-category-btn {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.pos-category-btn:hover {
+  border-color: rgba(56, 189, 248, 0.9);
+  transform: translateY(-0.5px);
+}
+
+.pos-category-btn.active {
+  background: var(--bufet-accent-soft);
+  border-color: var(--bufet-accent);
+  color: var(--bufet-accent);
+}
+
+/* ============================================================
+   ✅ CATÁLOGO EN TARJETAS CLICKEABLES
+   ============================================================ */
+
+.pos-catalog {
+  padding: 0.55rem 0.6rem;
+}
+
+.pos-catalog-grid {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+
+  /* OJO: "cm" en pantalla no es tamaño físico real.
+     Se mantiene por compatibilidad, pero abajo se pisa con override final. */
+  grid-template-columns: repeat(auto-fill, 2cm);
+  grid-auto-rows: 4cm;
+
+  gap: 0.35rem;
+  overflow: auto;
+  padding-right: 0.12rem;
+
+  /* hace que no se estiren raro */
+  align-content: start;
+  justify-content: start;
+}
+
+.pos-catalog-empty {
+  grid-column: 1 / -1;
+  font-size: 0.82rem;
+  color: var(--bufet-text-muted);
+}
+
+/* Tarjeta de producto */
+
+.pos-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.9);
+
+  /* Se mantiene por compatibilidad, pero abajo se pisa con override final */
+  width: 2cm;
+  height: 4cm;
+
+  padding: 0.18rem 0.2rem;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.4);
+  box-sizing: border-box;
+
+  /* evita que contenido rompa el tamaño */
+  overflow: hidden;
+}
+
+.theme-light .pos-card {
+  background: #ffffff;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+}
+
+/* ✅ IMAGEN dentro del botón (PROPORCIONAL) */
+.pos-card-img {
+  width: 2cm;
+  height: 2cm;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.12rem auto;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.theme-light .pos-card-img {
+  background: #f9fafb;
+}
+
+.pos-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ✅ proporcional, no deforma ni recorta */
+  object-position: center;
+  display: block;
+}
+
+/* ✅ fallback (Sin imagen) centrado */
+.pos-card-img-empty {
+  font-size: 0.7rem;
+  opacity: 0.75;
+}
+
+.pos-card-img-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  line-height: 1.05;
+  font-size: 0.68rem;
+  color: var(--bufet-text-muted);
+  padding: 0.1rem;
+  box-sizing: border-box;
+}
+
+.pos-card-img-debug {
+  margin-top: 4px;
+  font-size: 0.62rem;
+  opacity: 0.85;
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+/* Texto: compacto */
+.pos-card-name {
+  font-size: 0.66rem;
+  font-weight: 750;
+  line-height: 1.05;
+  margin-bottom: 0.08rem;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pos-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  margin-bottom: 0.12rem;
+}
+
+.pos-card-kpis {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.15rem;
+  margin-top: auto;
+}
+
+.pos-card-price {
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.pos-card-stock {
+  font-size: 0.62rem;
+  color: var(--bufet-text-muted);
+}
+
+/* Chip reutilizado del tema */
+
+.pos-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.08rem 0.35rem;
+  font-size: 0.62rem;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(15, 23, 42, 0.35);
+  color: var(--bufet-text-secondary);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.theme-light .pos-chip {
+  background: #f3f4f6;
+}
+
+.pos-chip.soft {
+  opacity: 0.9;
+}
+
+/* Catálogo: tarjeta clickeable */
+
+.pos-card.clickable {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    border-color 0.12s ease, background 0.12s ease;
+}
+
+.pos-card.clickable:hover {
+  border-color: rgba(56, 189, 248, 0.85);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.75);
+  transform: translateY(-1px);
+}
+
+.pos-card.muted {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.pos-card-hint {
+  margin-top: 0.08rem;
+  font-size: 0.62rem;
+  color: var(--bufet-text-muted);
+}
+
+/* ============================================================
+   ✅ CARRITO (compacto, filas bajas)
+   ============================================================ */
+
+.pos-cart {
+  padding: 0.55rem 0.6rem;
+}
+
+.pos-cart-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.55rem;
+  align-items: center;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  flex: 0 0 auto;
+}
+
+.pos-total-box {
+  border-radius: 10px;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.08);
+  text-align: right;
+}
+
+.pos-total-label {
+  font-size: 0.7rem;
+  color: var(--bufet-text-muted);
+}
+
+.pos-total-value {
+  font-size: 0.96rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+/* ✅ Body carrito con scroll interno */
+
+.pos-cart-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-top: 0.4rem;
+  gap: 0.45rem;
+}
+
+.pos-cart-items {
+  flex: 1 1 auto;
+  min-height: 110px;
+  overflow: auto;
+  display: grid;
+  gap: 0.3rem;
+  padding-right: 0.12rem;
+}
+
+.pos-cart-footer {
+  flex: 0 0 auto;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  padding-top: 0.45rem;
+}
+
+/* Filas del carrito */
+
+.pos-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 160px 120px;
+  gap: 0.35rem;
+  padding: 0.35rem 0.4rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  align-items: flex-start;
+}
+
+.theme-light .pos-item {
+  background: #ffffff;
+}
+
+.pos-item-left {
+  min-width: 0;
+}
+
+.pos-item-name {
+  font-weight: 700;
+  line-height: 1.12;
+  font-size: 0.82rem;
+}
+
+.pos-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  margin-top: 0.1rem;
+}
+
+.pos-item-unit {
+  font-size: 0.72rem;
+  color: var(--bufet-text-muted);
+}
+
+.pos-stock {
+  font-size: 0.72rem;
+  color: var(--bufet-text-muted);
+  margin-top: 0.14rem;
+}
+
+.pos-item-mid {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  gap: 0.25rem;
+  justify-items: end;
+  align-content: flex-start;
+  min-width: 0;
+}
+
+.pos-qty {
+  display: grid;
+  grid-template-columns: 34px minmax(48px, 1fr) 34px;
+  gap: 0.25rem;
+  align-items: center;
+  width: 100%;
+}
+
+.pos-qty-btn {
+  justify-content: center;
+  width: 34px;
+  height: 28px;
+  padding: 0;
+  font-size: 0.82rem;
+}
+
+.pos-qty-input {
+  text-align: center;
+  width: 100%;
+  min-width: 48px;
+  height: 28px;
+  padding: 0.18rem 0.35rem;
+  font-size: 0.8rem;
+}
+
+.pos-remove {
+  padding: 0.18rem 0.5rem;
+  font-size: 0.76rem;
+}
+
+.pos-item-right {
+  position: relative;
+  z-index: 1;
+  text-align: right;
+  min-width: 0;
+}
+
+.pos-subtotal-label {
+  font-size: 0.7rem;
+  color: var(--bufet-text-muted);
+  white-space: nowrap;
+}
+
+.pos-subtotal {
+  font-weight: 800;
+  font-size: 0.86rem;
+  margin-top: 0.08rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Footer acciones */
+
+.pos-actions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 0.1rem;
+}
+
+.pos-confirm {
+  padding: 0.38rem 0.9rem;
+  font-size: 0.84rem;
+}
+
+/* ============================================================
+   ✅ Modal real (Caja y Cobro)
+   ============================================================ */
+
+.pos-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(2, 6, 23, 0.72);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.theme-light .pos-modal-overlay {
+  background: rgba(17, 24, 39, 0.45);
+}
+
+/* Variante para Cobro: ~50% pantalla (máx 720px) */
+
+.pos-modal-overlay-cobro {
+  justify-content: center;
+}
+
+.pos-modal {
+  width: min(560px, 96vw);
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: radial-gradient(circle at top left, #0b1120, #020617);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.45);
+  padding: 0.9rem 1rem 1rem;
+}
+
+.pos-modal-cobro {
+  width: 50vw;
+  max-width: 720px;
+}
+
+@media (max-width: 900px) {
+  .pos-modal-cobro {
+    width: 96vw;
+    max-width: 96vw;
+  }
+}
+
+.theme-light .pos-modal,
+.theme-light .pos-modal-cobro {
+  background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+}
+
+.pos-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.pos-modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.pos-modal-body {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.pos-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+/* Secciones dentro del modal Cobro */
+
+.pos-section-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.pos-grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.55rem;
+}
+
+.pos-cashbox {
+  border-radius: 12px;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  background: rgba(34, 197, 94, 0.06);
+  padding: 0.48rem;
+}
+
+.pos-change {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.45rem 0.5rem;
+  display: grid;
+  gap: 0.18rem;
+}
+
+.pos-change-label {
+  font-size: 0.72rem;
+  color: var(--bufet-text-muted);
+}
+
+.pos-change-value {
+  font-weight: 900;
+  font-size: 0.96rem;
+}
+
+.pos-change-value.ok {
+  color: var(--bufet-success);
+}
+
+.pos-change-value.bad {
+  color: var(--bufet-danger);
+}
+
+.pos-change-hint {
+  font-size: 0.7rem;
+  color: var(--bufet-text-muted);
+}
+
+/* =====================================
+   Responsive
+   ===================================== */
+
+@media (max-width: 1150px) {
+  .pos-item {
+    grid-template-columns: minmax(0, 1fr) 150px 110px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .pos-topcards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1020px) {
+  .pos-item {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pos-item-mid {
+    justify-items: start;
+  }
+  .pos-item-right {
+    text-align: left;
+  }
+}
+
+@media (max-width: 900px) {
+  .pos-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  .pos-grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- DATOS OPERATIVOS ULTRA COMPACTO (1 fila) ---------- */
+.pos-topcard-ops-compact {
+  padding: 6px 10px !important;
+  min-height: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.pos-topcard-row-compact {
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+}
+
+.pos-topcard-title-compact {
+  font-size: 0.78rem;
+  line-height: 1;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.pos-ops-inline-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.pos-ops-input-compact {
+  padding: 6px 8px !important;
+  height: 28px !important;
+  font-size: 0.78rem !important;
+}
+
+.pos-btn-compact {
+  padding: 6px 10px !important;
+  height: 28px !important;
+  font-size: 0.78rem !important;
+}
+
+.pos-ops-check-compact {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  opacity: 0.9;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* (Se mantiene .pos-card-img-empty ya definido arriba; no se rompe nada) */
+
+/* ============================================================
+   ✅ OVERRIDE FINAL (LO QUE TE FALTABA)
+   Fuerza tamaño visible de los “botones” a 4x5 (aprox) en pantalla
+   y hace la imagen proporcional al botón.
+   ============================================================ */
+
+/* 4cm ≈ 152px | 5cm ≈ 190px (aprox en CSS px) */
+:root {
+  --pos-card-w: 152px; /* ~4cm */
+  --pos-card-h: 190px; /* ~5cm */
+}
+
+.pos-catalog-grid {
+  grid-template-columns: repeat(auto-fill, var(--pos-card-w)) !important;
+  grid-auto-rows: var(--pos-card-h) !important;
+}
+
+.pos-card {
+  width: var(--pos-card-w) !important;
+  height: var(--pos-card-h) !important;
+  padding: 0.22rem 0.24rem !important;
+}
+
+/* Imagen proporcional:
+   ocupa todo el ancho y ~55% del alto del botón */
+.pos-card-img {
+  width: 100% !important;
+  height: calc(var(--pos-card-h) * 0.55) !important;
+  margin: 0 auto 0.14rem auto !important;
+}
+
+.pos-card-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* proporcional */
+  object-position: center !important;
+  display: block !important;
+}
+
+/* Ajuste tipografías para el nuevo tamaño */
+.pos-card-name {
+  font-size: 0.74rem !important;
+}
+
+.pos-card-price {
+  font-size: 0.78rem !important;
+}
+
+.pos-card-stock {
+  font-size: 0.68rem !important;
+}
+
+.pos-card-hint {
+  font-size: 0.66rem !important;
+}

@@ -1,0 +1,35 @@
+# ---------------------------
+# General
+# ---------------------------
+.DS_Store
+Thumbs.db
+*.log
+logs/
+coverage/
+
+# ---------------------------
+# Environment secrets
+# ---------------------------
+.env
+.env.*
+**/.env
+**/.env.*
+
+# ---------------------------
+# Node / build artifacts
+# ---------------------------
+node_modules/
+**/node_modules/
+
+dist/
+**/dist/
+build/
+**/build/
+
+.vite/
+**/.vite/
+
+# ---------------------------
+# Optional: local config
+# ---------------------------
+*.local

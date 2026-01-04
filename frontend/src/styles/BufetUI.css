@@ -1,0 +1,1102 @@
+/* D:\VENTAS-DIGITAL\BUFET_DOE\frontend\src\styles\BufetUI.css */
+/* ============================================================
+   🎨 Tema general BUFET_DOE (claro / oscuro)
+   Estilo tipo app moderna (Mercado Pago-like)
+   ============================================================ */
+
+/* ---------- Variables de tema ---------- */
+:root {
+  --bufet-bg-app: #0f172a;
+  --bufet-bg-surface: #020617;
+  --bufet-bg-card: #0b1220;
+  --bufet-bg-card-soft: #020617;
+  --bufet-text-primary: #f9fafb;
+  --bufet-text-secondary: #cbd5f5;
+  --bufet-text-muted: #9ca3af;
+  --bufet-accent: #38bdf8;
+  --bufet-accent-soft: rgba(56, 189, 248, 0.15);
+  --bufet-border-subtle: rgba(148, 163, 184, 0.35);
+  --bufet-danger: #ef4444;
+  --bufet-success: #22c55e;
+  --bufet-shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.35);
+}
+
+/* Tema claro */
+.theme-light {
+  --bufet-bg-app: #f3f4f6;
+  --bufet-bg-surface: #e5e7eb;
+  --bufet-bg-card: #ffffff;
+  --bufet-bg-card-soft: #f9fafb;
+  --bufet-text-primary: #111827;
+  --bufet-text-secondary: #374151;
+  --bufet-text-muted: #6b7280;
+  --bufet-accent: #2563eb;
+  --bufet-accent-soft: rgba(37, 99, 235, 0.08);
+  --bufet-border-subtle: rgba(209, 213, 219, 1);
+  --bufet-danger: #dc2626;
+  --bufet-success: #16a34a;
+  --bufet-shadow-soft: 0 16px 30px rgba(15, 23, 42, 0.15);
+}
+
+/* Tema oscuro */
+.theme-dark {
+  --bufet-bg-app: #020617;
+  --bufet-bg-surface: #020617;
+  --bufet-bg-card: #020617;
+  --bufet-bg-card-soft: #020617;
+  --bufet-text-primary: #f9fafb;
+  --bufet-text-secondary: #e5e7eb;
+  --bufet-text-muted: #9ca3af;
+  --bufet-accent: #38bdf8;
+  --bufet-accent-soft: rgba(56, 189, 248, 0.18);
+  --bufet-border-subtle: rgba(51, 65, 85, 0.9);
+  --bufet-danger: #f97373;
+  --bufet-success: #4ade80;
+  --bufet-shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
+}
+
+/* ---------- Base app ---------- */
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: radial-gradient(circle at top, #1e293b 0, #020617 40%, #020617 100%);
+  color: var(--bufet-text-primary);
+}
+
+/* ---------- Shell de la app ---------- */
+
+.bufet-app {
+  min-height: 100vh;
+  background: radial-gradient(
+      circle at 0% 0%,
+      rgba(56, 189, 248, 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(59, 130, 246, 0.16),
+      transparent 55%
+    ),
+    var(--bufet-bg-app);
+  color: var(--bufet-text-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Topbar */
+
+.bufet-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(14px);
+  background: linear-gradient(
+    to bottom,
+    rgba(15, 23, 42, 0.92),
+    rgba(15, 23, 42, 0.86),
+    rgba(15, 23, 42, 0.76)
+  );
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.bufet-topbar-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0.7rem 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bufet-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bufet-logo-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: radial-gradient(circle at 30% 20%, #38bdf8, #0ea5e9 40%, #0f172a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #e5f9ff;
+}
+
+.bufet-topbar-text-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.bufet-topbar-text-subtitle {
+  font-size: 0.78rem;
+  color: var(--bufet-text-muted);
+}
+
+.bufet-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bufet-pill {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  color: var(--bufet-text-secondary);
+}
+
+/* Switch tema */
+
+.bufet-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  padding: 0.22rem 0.5rem;
+  font-size: 0.75rem;
+  background: radial-gradient(circle at top, #0b1120, #020617);
+  color: var(--bufet-text-secondary);
+  cursor: pointer;
+}
+
+.bufet-theme-toggle span {
+  opacity: 0.85;
+}
+
+.bufet-theme-toggle-knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #facc15, #f97316);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+}
+
+.theme-dark .bufet-theme-toggle-knob {
+  background: radial-gradient(circle at 30% 30%, #e5e7eb, #9ca3af);
+}
+
+/* ---------- Contenido principal ---------- */
+
+.bufet-main {
+  flex: 1;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.2rem 1.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ---------- Dashboard ---------- */
+
+.bufet-dashboard-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.bufet-dashboard-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.bufet-dashboard-subtitle {
+  font-size: 0.82rem;
+  color: var(--bufet-text-muted);
+}
+
+.bufet-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 840px) {
+  .bufet-dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Cards generales */
+
+.bufet-card {
+  background: radial-gradient(circle at top left, #0b1120, #020617);
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: var(--bufet-shadow-soft);
+  padding: 1rem 1rem 0.9rem;
+}
+
+.theme-light .bufet-card {
+  background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+  border-color: rgba(209, 213, 219, 0.9);
+}
+
+.bufet-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.bufet-card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.bufet-card-caption {
+  font-size: 0.78rem;
+  color: var(--bufet-text-muted);
+}
+
+/* Quick actions */
+
+.bufet-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.55rem;
+}
+
+.bufet-quick-card {
+  position: relative;
+  border-radius: 14px;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.95),
+    rgba(15, 23, 42, 0.8),
+    rgba(15, 23, 42, 0.95)
+  );
+  color: var(--bufet-text-secondary);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease, background 0.18s ease;
+}
+
+.theme-light .bufet-quick-card {
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f9fafb,
+    #e5f2ff
+  );
+}
+
+.bufet-quick-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle at 0 0,
+    rgba(56, 189, 248, 0.25),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.bufet-quick-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(56, 189, 248, 0.9);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.75);
+}
+
+.bufet-quick-card:hover::before {
+  opacity: 1;
+}
+
+.bufet-quick-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.bufet-quick-desc {
+  font-size: 0.74rem;
+  color: var(--bufet-text-muted);
+  margin-top: 0.12rem;
+}
+
+.bufet-quick-tag {
+  margin-top: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.7rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  background: var(--bufet-accent-soft);
+  color: var(--bufet-accent);
+}
+
+.bufet-quick-tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bufet-accent);
+}
+
+/* Lateral derecho dashboard */
+
+.bufet-side-panel {
+  background: linear-gradient(
+    145deg,
+    rgba(15, 23, 42, 0.97),
+    rgba(15, 23, 42, 0.9),
+    rgba(8, 47, 73, 0.98)
+  );
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  padding: 0.9rem 1rem;
+  box-shadow: var(--bufet-shadow-soft);
+}
+
+.theme-light .bufet-side-panel {
+  background: linear-gradient(
+    145deg,
+    #ffffff,
+    #f9fafb,
+    #e0f2fe
+  );
+}
+
+.bufet-side-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.bufet-side-text {
+  font-size: 0.78rem;
+  color: var(--bufet-text-muted);
+}
+
+/* ---------- Formularios / tablas (reutilizado) ---------- */
+
+.bufet-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.8rem 0.4rem 1rem;
+  font-size: 14px;
+  color: var(--bufet-text-primary);
+}
+
+.bufet-subtitle {
+  font-size: 0.85rem;
+  color: var(--bufet-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.bufet-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .bufet-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.bufet-card-form {
+  background: var(--bufet-bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--bufet-border-subtle);
+  padding: 0.9rem 1rem;
+  box-shadow: var(--bufet-shadow-soft);
+}
+
+.bufet-card-table {
+  background: var(--bufet-bg-card-soft);
+  border-radius: 14px;
+  border: 1px solid var(--bufet-border-subtle);
+  padding: 0.9rem 1rem;
+  box-shadow: var(--bufet-shadow-soft);
+}
+
+.bufet-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+
+.bufet-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+}
+
+.bufet-label {
+  font-size: 0.78rem;
+  color: var(--bufet-text-muted);
+}
+
+.bufet-input,
+.bufet-textarea,
+.bufet-select {
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  padding: 0.38rem 0.55rem;
+  font-size: 0.82rem;
+  background: rgba(15, 23, 42, 0.85);
+  color: var(--bufet-text-primary);
+  outline: none;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease,
+    background 0.16s ease, transform 0.06s ease;
+}
+
+.theme-light .bufet-input,
+.theme-light .bufet-textarea,
+.theme-light .bufet-select {
+  background: #ffffff;
+}
+
+.bufet-input:focus,
+.bufet-textarea:focus,
+.bufet-select:focus {
+  border-color: var(--bufet-accent);
+  box-shadow: 0 0 0 1px var(--bufet-accent-soft);
+  transform: translateY(-0.5px);
+}
+
+.bufet-textarea {
+  resize: vertical;
+  min-height: 64px;
+}
+
+.bufet-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+/* Botones */
+
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-ghost {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.16s ease, color 0.16s ease,
+    border-color 0.16s ease, transform 0.06s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #0b1120;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  transform: translateY(-0.5px);
+}
+
+.btn-secondary {
+  background: rgba(15, 23, 42, 0.85);
+  color: var(--bufet-text-secondary);
+  border-color: rgba(148, 163, 184, 0.7);
+}
+.theme-light .btn-secondary {
+  background: #f3f4f6;
+}
+.btn-secondary:hover {
+  background: rgba(30, 64, 175, 0.18);
+}
+
+.btn-danger {
+  background: var(--bufet-danger);
+  color: #f9fafb;
+}
+.btn-danger:hover {
+  filter: brightness(0.95);
+  transform: translateY(-0.5px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--bufet-text-muted);
+}
+.btn-ghost:hover {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+/* Tablas */
+
+.bufet-table-wrapper {
+  max-height: 480px;
+  overflow: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+}
+
+.bufet-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.bufet-table th,
+.bufet-table td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid rgba(55, 65, 81, 0.7);
+}
+
+.theme-light .bufet-table th,
+.theme-light .bufet-table td {
+  border-bottom-color: #e5e7eb;
+}
+
+.bufet-table th {
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 0.95),
+    rgba(15, 23, 42, 0.9)
+  );
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-align: left;
+  font-weight: 500;
+  color: #e5e7eb;
+}
+
+.theme-light .bufet-table th {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.bufet-table tr:hover td {
+  background: rgba(15, 23, 42, 0.65);
+}
+
+.theme-light .bufet-table tr:hover td {
+  background: #f3f4f6;
+}
+
+/* Tags */
+
+.bufet-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+}
+
+.bufet-tag-activo {
+  background: rgba(22, 163, 74, 0.16);
+  color: var(--bufet-success);
+}
+
+.bufet-tag-inactivo {
+  background: rgba(248, 113, 113, 0.18);
+  color: var(--bufet-danger);
+}
+
+/* Mensajes */
+
+.bufet-error {
+  margin-top: 0.45rem;
+  font-size: 0.78rem;
+  color: var(--bufet-danger);
+}
+
+.bufet-info {
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--bufet-text-muted);
+}
+
+/* ============================================================
+   ✅ AGREGADOS PARA ABM (OrganizadoresPage.tsx)
+   ============================================================ */
+
+.bufet-page {
+  width: 100%;
+  min-height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bufet-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .bufet-header {
+    flex-direction: column;
+  }
+}
+
+.bufet-title {
+  font-size: 1.25rem;
+  font-weight: 650;
+  margin: 0;
+}
+
+.bufet-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.bufet-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--bufet-text-secondary);
+  user-select: none;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.theme-light .bufet-toggle {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.bufet-toggle input {
+  accent-color: var(--bufet-accent);
+}
+
+.bufet-messages {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.bufet-alert {
+  border-radius: 12px;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.55);
+  font-size: 0.85rem;
+}
+
+.theme-light .bufet-alert {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.bufet-alert-error {
+  border-color: rgba(239, 68, 68, 0.55);
+  color: #fecaca;
+}
+
+.theme-light .bufet-alert-error {
+  color: #7f1d1d;
+}
+
+.bufet-alert-success {
+  border-color: rgba(34, 197, 94, 0.55);
+  color: #bbf7d0;
+}
+
+.theme-light .bufet-alert-success {
+  color: #14532d;
+}
+
+.bufet-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.bufet-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.7rem;
+}
+
+@media (max-width: 720px) {
+  .bufet-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.bufet-field-full {
+  grid-column: 1 / -1;
+}
+
+.bufet-field label {
+  font-size: 0.78rem;
+  color: var(--bufet-text-muted);
+}
+
+.bufet-field input,
+.bufet-field textarea {
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  padding: 0.45rem 0.6rem;
+  font-size: 0.85rem;
+  background: rgba(15, 23, 42, 0.75);
+  color: var(--bufet-text-primary);
+  outline: none;
+}
+
+.theme-light .bufet-field input,
+.theme-light .bufet-field textarea {
+  background: #ffffff;
+}
+
+.bufet-field input:focus,
+.bufet-field textarea:focus {
+  border-color: var(--bufet-accent);
+  box-shadow: 0 0 0 1px var(--bufet-accent-soft);
+}
+
+.bufet-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.bufet-btn,
+.bufet-btn-primary,
+.bufet-btn-danger {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  padding: 0.38rem 0.9rem;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.16s ease, border-color 0.16s ease,
+    color 0.16s ease, opacity 0.16s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.bufet-btn:disabled,
+.bufet-btn-primary:disabled,
+.bufet-btn-danger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bufet-btn {
+  background: rgba(15, 23, 42, 0.75);
+  color: var(--bufet-text-secondary);
+  border-color: rgba(148, 163, 184, 0.6);
+}
+
+.theme-light .bufet-btn {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.bufet-btn:hover {
+  transform: translateY(-0.5px);
+  border-color: rgba(56, 189, 248, 0.9);
+}
+
+.bufet-btn-primary {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #0b1120;
+}
+
+.bufet-btn-primary:hover {
+  transform: translateY(-0.5px);
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+}
+
+.bufet-btn-danger {
+  background: rgba(239, 68, 68, 0.95);
+  color: #fff;
+}
+
+.bufet-btn-danger:hover {
+  transform: translateY(-0.5px);
+  filter: brightness(0.95);
+}
+
+.bufet-list-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.bufet-search {
+  min-width: 260px;
+  max-width: 420px;
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  padding: 0.42rem 0.75rem;
+  font-size: 0.84rem;
+  background: rgba(15, 23, 42, 0.7);
+  color: var(--bufet-text-primary);
+  outline: none;
+}
+
+.theme-light .bufet-search {
+  background: #ffffff;
+}
+
+.bufet-search:focus {
+  border-color: var(--bufet-accent);
+  box-shadow: 0 0 0 1px var(--bufet-accent-soft);
+}
+
+.bufet-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.55);
+  color: var(--bufet-text-secondary);
+}
+
+.bufet-table-wrap {
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  overflow: auto;
+  max-height: 62vh;
+}
+
+.bufet-ellipsis {
+  max-width: 520px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bufet-row-muted td {
+  opacity: 0.78;
+}
+
+.bufet-pill.ok {
+  border-color: rgba(34, 197, 94, 0.55);
+  color: #bbf7d0;
+  background: rgba(22, 163, 74, 0.12);
+}
+
+.theme-light .bufet-pill.ok {
+  color: #14532d;
+}
+
+.bufet-pill.off {
+  border-color: rgba(239, 68, 68, 0.55);
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.theme-light .bufet-pill.off {
+  color: #7f1d1d;
+}
+
+.bufet-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.bufet-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(2, 6, 23, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.theme-light .bufet-modal-overlay {
+  background: rgba(17, 24, 39, 0.45);
+}
+
+.bufet-modal {
+  width: min(720px, 96vw);
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: radial-gradient(circle at top left, #0b1120, #020617);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.45);
+  padding: 0.9rem 1rem 1rem;
+}
+
+.theme-light .bufet-modal {
+  background: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+}
+
+.bufet-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.bufet-modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+}
+
+/* Modo pantalla completa (tablets / kioscos / POS) */
+.bufet-main-full {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 1rem 1rem 1.2rem;
+}
+
+/* ✅ FULLSCREEN REAL (ganar siempre) */
+main.bufet-main.bufet-main-full {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 1rem 1rem 1.2rem !important;
+}
+
+/* ✅ El contenido interno NO debe limitarse a 960px en fullscreen */
+main.bufet-main.bufet-main-full .bufet-container {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* ✅ Opcional: si alguna card/table está centrada por otro wrapper */
+main.bufet-main.bufet-main-full .bufet-card-form,
+main.bufet-main.bufet-main-full .bufet-card-table {
+  width: 100% !important;
+}
+
+/* ============================================================
+   🧾 POS – Layout pantalla completa (kiosco / tablet)
+   ============================================================ */
+
+.bufet-pos {
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - 90px); /* topbar */
+  padding: 0.75rem;
+  box-sizing: border-box;
+}
+
+/* Grid principal POS */
+.bufet-pos-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  height: 100%;
+}
+
+/* Columna catálogo */
+.bufet-pos-layout > .bufet-card-table {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tabla scroll independiente */
+.bufet-pos-layout .bufet-table-wrapper {
+  flex: 1;
+  max-height: none;
+  overflow: auto;
+}
+
+/* Columna carrito */
+.bufet-pos-layout > .bufet-card-form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Scroll interno carrito */
+.bufet-pos-layout > .bufet-card-form > div:last-child {
+  overflow-y: auto;
+}
+
+/* Responsive POS */
+@media (max-width: 900px) {
+  .bufet-pos-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+}
+
+/* ============================================================
+   ✅ FIX MINUCIOSO SIN PERDER ESTÉTICA (FULLSCREEN + POS)
+   - Evita desborde por padding/100vh
+   - Mantiene tus gradientes/cards intactos
+   ============================================================ */
+
+/* 1) Cuando estás en fullscreen, el main debe ocupar el alto real y no hacer scroll de página */
+main.bufet-main.bufet-main-full {
+  height: calc(100vh - 90px) !important;
+  min-height: calc(100vh - 90px) !important;
+  overflow: hidden !important;
+
+  /* mantiene tu padding lindo */
+  box-sizing: border-box !important;
+}
+
+/* 2) Permitir que los hijos hagan scroll interno correctamente (clave en grids/flex) */
+main.bufet-main.bufet-main-full,
+main.bufet-main.bufet-main-full * {
+  min-height: 0;
+}
+
+/* 3) Si estás usando .bufet-pos, que NO sume otro 100vh aparte (usa 100% del main) */
+main.bufet-main.bufet-main-full .bufet-pos {
+  height: 100% !important;
+}
+
+/* 4) En la grilla POS, asegurar que el alto se respete y el scroll sea interno */
+main.bufet-main.bufet-main-full .bufet-pos-layout {
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+/* 5) Tablas y paneles: scroll interno estable */
+main.bufet-main.bufet-main-full .bufet-pos-layout > .bufet-card-table,
+main.bufet-main.bufet-main-full .bufet-pos-layout > .bufet-card-form {
+  min-height: 0 !important;
+}
+
+/* ============================================================
+   ✅ CARGA FORZADA de estilos POS
+   - Esto asegura que VentasPOSPage.css se aplique siempre
+   - Y que se cargue DESPUÉS del tema base (prioridad por orden)
+   ============================================================ */
+@import "./VentasPOSPage.css";
